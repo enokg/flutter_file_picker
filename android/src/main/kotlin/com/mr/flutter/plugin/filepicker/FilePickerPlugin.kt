@@ -145,7 +145,10 @@ class FilePickerPlugin : MethodCallHandler, FlutterPlugin,
 
             "custom" -> {
                 val allowedExtensions =
-                    getMimeTypes(arguments?.get("allowedExtensions") as ArrayList<String>?)
+                    @Suppress("UNCHECKED_CAST")
+            val allowedExts = arguments?.get("allowedExtensions") as? ArrayList<String>
+            getMimeTypes(allowedExts)
+
                 if (allowedExtensions.isNullOrEmpty()) {
                     result.error(
                         TAG,
@@ -175,7 +178,10 @@ class FilePickerPlugin : MethodCallHandler, FlutterPlugin,
                     fileType,
                     arguments?.get("allowMultipleSelection") as Boolean?,
                     arguments?.get("withData") as Boolean?,
-                    getMimeTypes(arguments?.get("allowedExtensions") as ArrayList<String>?),
+                    @Suppress("UNCHECKED_CAST")
+                val allowedExts = arguments?.get("allowedExtensions") as? ArrayList<String>
+                getMimeTypes(allowedExts)
+
                     arguments?.get("compressionQuality") as Int?,
                     result
                 )
